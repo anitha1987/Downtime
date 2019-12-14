@@ -1,0 +1,40 @@
+{% extends 'downtimeApp/base.html' %}
+{% load staticfiles %}
+{% block content %}
+            {% if user.is_authenticated %}
+                <div class="page-container">
+
+                    <h2 class="top-menu">Hello {{ user.username }},</h2>
+                    <p>Please choose from below options.</p>
+
+                </div>
+            {% endif %}
+            <div class="content container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="links">
+                            <!-- Example row of columns -->
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="thumbnail">
+                                        <img src="{% static "images/Downtime.JPG" %}" alt="home"/>
+                                        <div class="caption">
+                                            <h2>DowntimeLog</h2>
+                                            <p>Makes you life easy!!</p>
+                                            {% if user.is_authenticated %}
+                                            <p><a class="btn btn-primary" href="{% url 'downtimeApp:downtime_list' %}"
+                                                  role="button">View
+                                                details &raquo;</a></p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </body>
+    </html>
+{% endblock %}

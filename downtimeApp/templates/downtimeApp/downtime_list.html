@@ -1,0 +1,71 @@
+{% extends 'downtimeApp/base.html' %}
+{% block content %}
+
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Downtime Tracker</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    </head>
+    <body>
+    <style>
+        body {
+            background-color: beige;
+        }
+    </style>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-primary">
+                    <div style="height:25px;padding:0" class="panel-heading">Welcome!</div>
+                    <div style="height:75px;padding:0" class="panel-body">
+                        Downtime Tracker is the application to log in the downtime electronically
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h2 style="height:75px;padding-left: 20cm">Downtime Log Information</h2>
+    </div>
+    <div>
+        <table class="table table-dark table-striped table-bordered table-hover">
+            <thead>
+            <tr class="bg-info">
+                <th>DowntimeID</th>
+                <th>Machine</th>
+                <th>Operator</th>
+                <th>StoppageReason</th>
+                <th>Date</th>
+                <th>StoppageStartTime</th>
+                <th>StoppageEndTime</th>
+                <th colspan="3">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for downtime in downtimes %}
+                <tr>
+                    <td>{{ downtime.id }}</td>
+                    <td>{{ downtime.machine }}</td>
+                    <td>{{ downtime.employee }}</td>
+                    <td>{{ downtime.stoppage }}</td>
+                    <td>{{ downtime.date }}</td>
+                    <td>{{ downtime.startTime }}</td>
+                    <td>{{ downtime.endTime }}</td>
+
+                    <td><a href="{% url 'downtimeApp:downtime_edit' pk=downtime.pk %}"  class="btn btn-warning">Edit</a>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div>
+            <a href="{% url 'downtimeApp:downtime_new' %}"><span
+                    class="btn btn-primary">Add Downtime</span></a>
+        </div>
+
+    </div>
+    </body>
+    </html>
+
+{% endblock %}

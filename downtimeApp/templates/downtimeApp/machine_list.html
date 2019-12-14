@@ -1,0 +1,70 @@
+{% extends 'downtimeApp/base.html' %}
+{% block content %}
+
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Downtime Tracker</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    </head>
+    <body>
+    <style>
+        body {
+            background-color: beige;
+        }
+    </style>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-primary">
+                    <div style="height:25px;padding:0" class="panel-heading">Welcome!</div>
+                    <div style="height:40px;padding:0"class="panel-body">
+                        Downtime Tracker is the application to log in the downtime electronically
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h2 style="height:75px; padding-left: 20cm">Machine Information</h2>
+    </div>
+    <div>
+        <table class="table table-dark table-striped table-bordered table-hover">
+            <thead>
+            <tr class="bg-info">
+                <th>Machine ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>LastModified By</th>
+                <th colspan="3">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for machine in machines %}
+                <tr>
+                    <td>{{ machine.id }}</td>
+                    <td>{{ machine.name }}</td>
+                    <td>{{ machine.description }}</td>
+                    <td>{{ machine.supervisor }}</td>
+
+                    <td><a href="{% url 'downtimeApp:machine_edit' pk=machine.pk %}"  class="btn btn-warning">Edit</a>
+                    <td><a href="{% url 'downtimeApp:machine_delete' pk=machine.pk %}"
+                           onclick="return confirm('Are you sure you want to delete?')"
+                           class="btn btn-danger">Delete</a>
+                    </td>
+                    <td><a href=""
+                           class="btn btn-primary">DowntimeSummary</a>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div>
+            <a href="{% url 'downtimeApp:machine_new' %}"><span
+                    class="btn btn-primary">Add Machine</span></a>
+        </div>
+
+    </div>
+    </body>
+    </html>
+
+{% endblock %}
