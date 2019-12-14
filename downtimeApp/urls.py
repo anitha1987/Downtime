@@ -5,6 +5,8 @@ from django.urls import path
 app_name = 'downtimeApp'
 urlpatterns = [
 
+    path('', views.home, name='home'),
+    path('home', views.home, name='home'),
     path('', views.home, name='supervisor_home'),
     path('', views.home, name='employee_home'),
     path('machine_list/', views.machine_list, name='machine_list'),
@@ -16,3 +18,4 @@ urlpatterns = [
     path('downtime/<pk>/edit/', views.downtime_edit, name='downtime_edit'),
 
 ]
+

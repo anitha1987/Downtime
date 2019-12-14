@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
+import math
 
 # Create your models here.
 
@@ -62,8 +64,12 @@ class Downtime(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     stoppage = models.CharField(max_length=50, choices=stoppage, blank=False)
     date = models.DateField(db_index=True)
-    startTime = models.TimeField()
+    startTime = models.TimeField(blank=False)
     endTime = models.TimeField(blank=False)
+    stoppageHours = models.IntegerField(blank=False)
 
-    def __str__(self):
-        return "Stoppage on %s by %s for %s" % (self.date, self.employee, self.stoppage)
+   # def totalStoppage(self):
+        #return (self.endTime - self.startTime)
+
+   # def __str__(self):
+       # return "Stoppage on %s by %s for %s" % (self.date, self.employee, self.stoppage)

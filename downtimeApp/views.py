@@ -13,7 +13,7 @@ def home(request):
         return render(request, 'downtimeApp/employee_home.html')
     if request.user.is_supervisor:
         return render(request, 'downtimeApp/supervisor_home.html')
-    return render(request, 'downtimeApp/machine_new.html')
+    return render(request, 'downtimeApp/home.html')
 
 
 
