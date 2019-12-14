@@ -1,10 +1,11 @@
-{% load staticfiles %}
+{% load static %}
 
 <html lang="en">
 <head>
     <title>Downtime Tracker</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -68,8 +69,8 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="{% url 'downtimeApp:home' %}">Home</a></li>
-                <li><a href="{% url 'downtimeApp:downtime_list' %}">Customers</a></li>
+                <li><a href="{% url 'downtimeApp:employee_home' %}">Home</a></li>
+                <li><a href="{% url 'downtimeApp:downtime_list' %}">Downtime</a></li>
 
 
             </ul>
