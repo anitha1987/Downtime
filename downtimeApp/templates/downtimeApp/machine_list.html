@@ -19,7 +19,7 @@
                 <div class="panel panel-primary">
                     <div style="height:25px;padding:0" class="panel-heading">Welcome!</div>
                     <div style="height:40px;padding:0"class="panel-body">
-                        Downtime Tracker is the application to log in the downtime electronically
+                        You could add machine info and view the downtime summary here.
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                            onclick="return confirm('Are you sure you want to delete?')"
                            class="btn btn-danger">Delete</a>
                     </td>
-                    <td><a href=""
+                    <td><a href="{% url 'downtimeApp:summary' pk=machine.pk %}"
                            class="btn btn-primary">DowntimeSummary</a>
                 </tr>
             {% endfor %}

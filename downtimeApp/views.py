@@ -1,10 +1,14 @@
 from django.contrib.auth.decorators import login_required
+from downtimeApp.decorators import employee_required, supervisor_required
 from django.shortcuts import redirect
 from django.shortcuts import render, get_object_or_404
 from .models import *
 from .forms import *
-
 from django.utils import timezone
+from django.db.models import Sum
+from downtimeApp.serializers import DowntimeSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 now = timezone.now()
 @login_required
@@ -21,11 +25,13 @@ def home(request):
 
 # Create your views here.
 @login_required
+
 def machine_list(request):
-    machine = Machine.objects.filter()
-    return render(request, 'downtimeApp/machine_list.html', {'machines': machine})
+    machines = Machine.objects.filter()
+    return render(request, 'downtimeApp/machine_list.html', {'machines': machines})
 
 @login_required
+
 def machine_new(request):
     if request.method == "POST":
         form = MachineForm(request.POST)
@@ -42,6 +48,7 @@ def machine_new(request):
 
 
 @login_required
+
 def machine_edit(request, pk):
     machine = get_object_or_404(Machine, pk=pk)
     if request.method == "POST":
@@ -60,12 +67,14 @@ def machine_edit(request, pk):
     return render(request, 'downtimeApp/machine_edit.html', {'form': form})
 
 @login_required
+
 def machine_delete(request, pk):
     machine = get_object_or_404(Machine, pk=pk)
     machine.delete()
     return redirect('downtimeApp:machine_list')
 
 @login_required
+
 def downtime_new(request):
     if request.method == "POST":
         form = DowntimeForm(request.POST)
@@ -81,6 +90,7 @@ def downtime_new(request):
     return render(request, 'downtimeApp/downtime_new.html', {'form': form})
 
 @login_required
+
 def downtime_edit(request, pk):
     downtime = get_object_or_404(Downtime, pk=pk)
     if request.method == "POST":
@@ -101,3 +111,21 @@ def downtime_edit(request, pk):
 def downtime_list(request):
     downtime = Downtime.objects.filter()
     return render(request, 'downtimeApp/downtime_list.html', {'downtimes': downtime})
+
+
+@login_required
+
+def summary(request, pk):
+    machine = get_object_or_404(Machine, pk=pk)
+    machines = Machine.objects.filter(name=pk)
+    downtimes = Downtime.objects.filter(machine=pk)
+    sum_stoppageHours = Downtime.objects.filter(machine=pk).aggregate(Sum('stoppageHours'))
+    return render(request, 'downtimeApp/summary.html', {'machines': machines,
+                                                        'downtimes': downtimes,
+                                                        'sum_stoppageHours': sum_stoppageHours})
+
+class DwontimeList(APIView):
+    def get(self,request):
+        downtimes_json = Downtime.objects.all()
+        serializer = DowntimeSerializer(downtimes_json, many=True)
+        return Response(serializer.data)

@@ -20,7 +20,7 @@
                 <div class="panel panel-primary">
                     <div style="height:25px;padding:0" class="panel-heading">Welcome!</div>
                     <div style="height:75px;padding:0" class="panel-body">
-                        Downtime Tracker is the application to log in the downtime electronically
+                        Downtime Tracker allows you to log machine downtimes.
                     </div>
                 </div>
             </div>
@@ -40,6 +40,7 @@
                 <th>Date</th>
                 <th>StoppageStartTime</th>
                 <th>StoppageEndTime</th>
+                <th>StoppageHours</th>
                 <th colspan="3">Actions</th>
             </tr>
             </thead>
@@ -53,6 +54,7 @@
                     <td>{{ downtime.date }}</td>
                     <td>{{ downtime.startTime }}</td>
                     <td>{{ downtime.endTime }}</td>
+                    <td>{{ downtime.stoppageHours }}</td>
 
                     <td><a href="{% url 'downtimeApp:downtime_edit' pk=downtime.pk %}"  class="btn btn-warning">Edit</a>
                 </tr>
@@ -63,7 +65,6 @@
             <a href="{% url 'downtimeApp:downtime_new' %}"><span
                     class="btn btn-primary">Add Downtime</span></a>
         </div>
-
     </div>
     </body>
     </html>

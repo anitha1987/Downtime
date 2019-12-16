@@ -66,10 +66,14 @@ class Downtime(models.Model):
     date = models.DateField(db_index=True)
     startTime = models.TimeField(blank=False)
     endTime = models.TimeField(blank=False)
-    stoppageHours = models.IntegerField(blank=False)
+    stoppageHours = models.DecimalField(max_digits=4, decimal_places=2)
 
-   # def totalStoppage(self):
-        #return (self.endTime - self.startTime)
+    def __str__(self):
+        return self.id
 
-   # def __str__(self):
-       # return "Stoppage on %s by %s for %s" % (self.date, self.employee, self.stoppage)
+            #"Stoppage on %s by %s for %s" % (self.date, self.employee, self.stoppage)
+
+
+    #def _int_(self):
+    #return (self.endTime - self.startTime)
+

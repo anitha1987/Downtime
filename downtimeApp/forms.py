@@ -4,7 +4,7 @@ from .models import Machine, Downtime
 class DowntimeForm(forms.ModelForm):
     class Meta:
         model = Downtime
-        fields = ('id', 'machine', 'employee', 'stoppage', 'date', 'startTime', 'endTime',)
+        fields = ('id', 'machine', 'employee', 'stoppage', 'date', 'startTime', 'endTime', 'stoppageHours')
 
 
 class MachineForm(forms.ModelForm):

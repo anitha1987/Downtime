@@ -3,91 +3,104 @@
 <html lang="en">
 <head>
     <title>Tracker</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <style>
-        /* Remove the navbar's default margin-bottom and rounded borders */
-        .navbar {
-            margin-bottom: 0;
-            border-radius: 0;
-        }
-
-        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-        .row.content {
-            height: 450px
-        }
-
-        /* Set gray background color and 100% height */
-        .sidenav {
-            padding-top: 20px;
-            background-color: #f1f1f1;
-            height: 100%;
-        }
-
-        /* Set black background color, white text and some padding */
-        footer {
-            background-color: #555;
-            color: white;
-            padding: 15px;
-        }
-
-        /* On small screens, set height to 'auto' for sidenav and grid */
-        @media screen and (max-width: 767px) {
-            .sidenav {
-                height: auto;
-                padding: 15px;
-            }
-
-            .row.content {
-                height: auto;
-            }
-        }
-    </style>
 </head>
-<body id="app-layout">
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
+<body >
 
-            <!-- Collapsed Hamburger -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#myNavbar">
-                <span class="sr-only">Toggle Navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+{##}
+{#<nav class="navbar navbar-expand navbar-dark bg-dark static-top">#}
+{##}
+{#    <a class="navbar-brand mr-1" href="{% url 'available:index' %}">FALCONS</a>#}
+{##}
+{#    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">#}
+{#        <i class="fas fa-bars"></i>#}
+{#    </button>#}
+{##}
+{#    <!-- Navbar -->#}
+{#    <div class="collapse navbar-collapse" id="navbarResponsive">#}
+{#        <ul class="navbar-nav ml-auto">#}
+{#            <li class="nav-item">#}
+{#                {% if request.user.is_captain %}#}
+{#                    <a class="nav-link text-capitalize">{{ request.user.captain.name }}</a>#}
+{#                {% elif request.user.is_player %}#}
+{#                    <a class="nav-link text-capitalize">{{ request.user.player.name }}</a>#}
+{#                {% endif %}#}
+{#            </li>#}
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>#}
+{#            </li>#}
+{#        </ul>#}
+{#    </div>#}
+{##}
+{#</nav>#}
 
-            <!-- Branding Image -->
-            <a class="navbar-brand" href="/">
-                Downt Time Tracker
-            </a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li><a href="{% url 'downtimeApp:supervisor_home' %}">Home</a></li>
-                <li><a href="{% url 'downtimeApp:downtime_list' %}">Downtime</a></li>
-
-
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                {% if user.is_authenticated %}
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="{% url 'logout' %}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="navbar-wrapper">
+        <div class="container">
+            <div class="navbar navbar-static-top" role="navigation">
+                <div class="container full-width">
+                    <div class="navbar-header">
+                      {% comment %}  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>{% endcomment %}
+                        <a class="navbar-brand" href="#">Downtime Tracker</a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        {% if user.is_authenticated %}
+                            {% if user.is_employee %}
+                                <ul class="navbar-nav">
+                                    <li class ="nav-item">
+                                        <a class="nav-link "  href="{% url 'downtimeApp:employee_home' %}">Home</a>
+                                    </li>
+                                    <li class ="nav-item">
+                                        <a class="nav-link " href="{% url 'downtimeApp:downtime_list' %}">Downtime</a>
+                                    </li>
+{#                                <li class ="nav-item">#}
+{#                                    <a class="nav-link text-capitalize" data-toggle="modal" data-target="#logoutModal" href="{% url 'logout' %}" >Logout</a>#}
+{#                                </li>#}
+{#                                       href="{% url 'logout' %}"><i class="fa fa-btn fa-sign-out"></i>Logout</a>#}
+                                </ul>
+                            {%endif %}
+                        {%endif %}
+                        {% if user.is_authenticated %}
+                            {% if user.is_supervisor %}
+                                <ul class="navbar-nav ml-auto">
+                                    <li class ="nav-item">
+                                        <a class="nav-link" href="{% url 'downtimeApp:supervisor_home' %}">Home</a>
+                                    </li>
+                                    <li class ="nav-item">
+                                        <a class="nav-link" href="{% url 'downtimeApp:machine_list' %}">Machine</a>
+                                    </li>
+                                </ul>
+                            {%endif %}
+                        {%endif %}
+                        <ul class= "navbar-nav mr-auto">
+                            {% if user.is_authenticated %}
+{#                                <li class="dropdown">#}
+                                    {% comment %}<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        <span class="caret"></span>
+                                    </a>{% endcomment %}
+                                    <ul class = "navbar-nav ml-5" >
+{#                                          class="dropdown-menu" role="menu"#}
+                                        <li class ="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                                    </ul>
+{#                                </li>#}
+                            {% else %}
+                                <li class ="nav-item"><a class="nav-link" href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                            {% endif %}
                         </ul>
-                    </li>
-                {% else %}
-                    <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                {% endif %}
-            </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </nav>
