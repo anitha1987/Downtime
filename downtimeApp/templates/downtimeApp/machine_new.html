@@ -4,6 +4,6 @@
     <h1>Add New Machine</h1>
     <form method="POST" class="machine-form">{% csrf_token %}
           {{ form|crispy }}
-        <button type="submit" class="save btn btn-default">Save</button>
+        <button type="submit" class="save btn btn-dark">Save</button>
     </form>
 {% endblock %}
